@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace，绑定一个Mapper接口-->
+<mapper namespace="com.example.mybatis.dao.BlogMapper">
+
+    <select id="queryBlogIF" parameterType="map" resultType="blog">
+        select * from blog where 1=1
+        <if test="title != null">
+            and title = #{title}
+        </if>
+        <if test="author != null">
+            and author = #{author}
+        </if>
+    </select>
+
+    <select id="queryBlogForeach" parameterType="map" resultType="blog">
+        select * from blog where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- select * from blog where id in (1, 2, 3) -->
+
+</mapper>
